@@ -1,0 +1,23 @@
+{
+  "name": "campus-trace",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Campus Trace 校园迹忆 —— 全栈版成长轨迹记录与情绪管理工具",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {
+    "better-sqlite3": "^13.0.3",
+    "chromadb": "^3.5.0",
+    "dotenv": "^18.0.9",
+    "express": "^5.3.0",
+    "mammoth": "^1.13.0",
+    "multer": "^2.5.0",
+    "pdf-parse": "^2.4.5"
+  }
+}
