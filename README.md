@@ -111,7 +111,49 @@ Campus Trace 采用经典的分层架构，各层职责清晰，RAG 数据流贯
 
 ### 1. 分层架构图
 
-![Campus Trace 分层架构图](./media/arch.png)
+### 1. 分层架构图
+
+```mermaid
+flowchart TD
+    subgraph 表现层 ["🎨 表现层 Presentation"]
+        A1["HTML / CSS / JS<br/>Bootstrap 5 · Font Awesome"]
+        A2["森林时间轴 · 记忆花朵 · 知识库UI"]
+    end
+
+    subgraph 接口层 ["🔌 接口层 API Layer"]
+        B1["Express 5 路由"]
+        B2["中间件链<br/>鉴权 · 权限校验 · 错误处理"]
+    end
+
+    subgraph 业务层 ["⚙️ 业务层 Business"]
+        C1["成长记录 CRUD"]
+        C2["游戏化激励<br/>骨头/奖杯/打卡"]
+        C3["情绪关键词识别"]
+        C4["RAG 问答流程<br/>分块/检索/生成"]
+    end
+
+    subgraph 数据层 ["💾 数据层 Data"]
+        D1["SQLite<br/>users · records · kb_documents"]
+        D2["文件系统<br/>上传图片 · 原始文档"]
+        D3["Chroma 向量库<br/>绑定 user_id 切片"]
+    end
+
+    subgraph 外部服务 ["🌐 外部服务 External"]
+        E1["智谱 GLM-4-Flash<br/>LLM 生成"]
+        E2["embedding-3<br/>向量嵌入"]
+    end
+
+    表现层 -->|"HTTP / REST API"| 接口层
+    接口层 --> 业务层
+    业务层 --> 数据层
+    数据层 --> 外部服务
+
+    style 表现层 fill:#eef6ff,stroke:#6A9ACE
+    style 接口层 fill:#f0f9eb,stroke:#1E803D
+    style 业务层 fill:#fff7e6,stroke:#F18C25
+    style 数据层 fill:#f5f0ff,stroke:#715EA9
+    style 外部服务 fill:#fff2ee,stroke:#DB614F
+```
 
 ### 2. RAG 数据流
 
