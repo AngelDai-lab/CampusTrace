@@ -51,8 +51,6 @@
 
 ## ✨ 核心亮点 <a name="features"></a>
 
-![界面总览](./media/view.png)
-
 ### 🌳 森林探索界面
 - **时间之路**：将时间线转化为森林探索路径，按日期像素排布，跨年自动留白
 - **奔跑小狗**：🐕 作为用户情感化化身，跟随最新记录奔跑，营造陪伴感
@@ -60,9 +58,6 @@
 - **年份旗帜**：跨年处自动插入导航旗帜，支持拖动快速跳转
 
 ### 📝 智能记录与情绪识别
-
-![记忆树界面](./media/tree.png)
-
 - **四层分类**：学习 / 生活 / 活动 / 碎碎念，输入时实时推荐，提交时尊重用户选择
 - **情绪自动识别**：关键词权重算法推断心情（开心 / 平静 / 难过 / 焦虑 / 专注），学习类自动匹配「专注」
 - **里程碑检测**：成就事件自动标记为里程碑，区别于日常记录
@@ -111,49 +106,15 @@ Campus Trace 采用经典的分层架构，各层职责清晰，RAG 数据流贯
 
 ### 1. 分层架构图
 
-### 1. 分层架构图
+| 层级 | 模块 | 技术 / 说明 |
+|:---:|:---|:---|
+| **🎨 表现层** | 前端页面 | HTML / CSS / JS · Bootstrap 5 · Font Awesome<br/>森林时间轴 · 记忆花朵 · 知识库问答UI |
+| **🔌 接口层** | API 路由 | Express 5<br/>中间件链：鉴权 · 权限校验 · 错误统一处理 |
+| **⚙️ 业务层** | 核心业务 | 成长记录 CRUD · 游戏化激励（骨头/奖杯/打卡）<br/>情绪关键词识别 · RAG 问答流程（分块/检索/生成） |
+| **💾 数据层** | 数据存储 | SQLite：users · records · kb_documents<br/>文件系统：上传图片 · 原始文档<br/>Chroma 向量库：绑定 user_id 的文档切片 |
+| **🌐 外部服务** | 第三方依赖 | 智谱 GLM-4-Flash（LLM 生成）<br/>embedding-3（向量嵌入） |
 
-```mermaid
-flowchart TD
-    subgraph 表现层 ["🎨 表现层 Presentation"]
-        A1["HTML / CSS / JS<br/>Bootstrap 5 · Font Awesome"]
-        A2["森林时间轴 · 记忆花朵 · 知识库UI"]
-    end
-
-    subgraph 接口层 ["🔌 接口层 API Layer"]
-        B1["Express 5 路由"]
-        B2["中间件链<br/>鉴权 · 权限校验 · 错误处理"]
-    end
-
-    subgraph 业务层 ["⚙️ 业务层 Business"]
-        C1["成长记录 CRUD"]
-        C2["游戏化激励<br/>骨头/奖杯/打卡"]
-        C3["情绪关键词识别"]
-        C4["RAG 问答流程<br/>分块/检索/生成"]
-    end
-
-    subgraph 数据层 ["💾 数据层 Data"]
-        D1["SQLite<br/>users · records · kb_documents"]
-        D2["文件系统<br/>上传图片 · 原始文档"]
-        D3["Chroma 向量库<br/>绑定 user_id 切片"]
-    end
-
-    subgraph 外部服务 ["🌐 外部服务 External"]
-        E1["智谱 GLM-4-Flash<br/>LLM 生成"]
-        E2["embedding-3<br/>向量嵌入"]
-    end
-
-    表现层 -->|"HTTP / REST API"| 接口层
-    接口层 --> 业务层
-    业务层 --> 数据层
-    数据层 --> 外部服务
-
-    style 表现层 fill:#eef6ff,stroke:#6A9ACE
-    style 接口层 fill:#f0f9eb,stroke:#1E803D
-    style 业务层 fill:#fff7e6,stroke:#F18C25
-    style 数据层 fill:#f5f0ff,stroke:#715EA9
-    style 外部服务 fill:#fff2ee,stroke:#DB614F
-```
+**数据流：** 表现层 → HTTP/REST API → 接口层鉴权 → 业务层处理 → 数据层读写 → 外部服务调用
 
 ### 2. RAG 数据流
 
